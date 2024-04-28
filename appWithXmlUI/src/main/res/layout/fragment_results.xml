@@ -5,19 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.results.ResultsFragment">
+    <TextView
+        android:id="@+id/generic_error"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@color/red_700"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        android:text="@string/no_internet" />
 
-    <include
-        android:id="@+id/results_header_view"
-        layout="@layout/view_result_header"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/results_rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/results_header_view"
+        app:layout_constraintBottom_toTopOf="@id/counting_done"
+        app:layout_constraintTop_toBottomOf="@+id/generic_error"
         tools:listitem="@layout/view_result_item" />
+    <TextView
+        android:id="@+id/counting_done"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textStyle="italic"
+        android:visibility="gone"
+        android:textColor="@color/red_700"
+        android:text="@string/counting_done" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -29,6 +55,7 @@
         android:backgroundTint="?attr/colorPrimaryVariant"
         android:src="@drawable/ic_refresh"
         app:borderWidth="0dp"
+        android:contentDescription="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="?attr/colorOnPrimary" />

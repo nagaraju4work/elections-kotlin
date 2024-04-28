@@ -3,4 +3,9 @@
     <string name="results_header_party">Party</string>
     <string name="results_header_candidate">Candidate</string>
     <string name="results_header_votes">Votes</string>
+    <string name="no_internet_connection">Internet not available, Cross check your internet connectivity and try again</string>
+    <string name="attention">Alert</string>
+    <string name="ok">OK</string>
+    <string name="no_internet">No Internet Available.</string>
+    <string name="counting_done">Counting done and Winner declared</string>
 </resources>
