@@ -18,18 +18,14 @@ class ResultsViewModel(
     // Public immutable state, observed from fragment.
     val viewState: Flow<ResultsViewState> = _viewState
 
-    init {
-        refresh()
-    }
-
     fun refresh() {
         viewModelScope.launch {
             _viewState.emit(ResultsViewState.Loading)
-
             val fetchedResults = resultsService.latestResults()
-            val nextState = ResultsViewState.Loaded.fromResults(fetchedResults)
-
+            val fetchedCandidates = resultsService.allCandidates()
+            val nextState = ResultsViewState.Loaded.fromResults(fetchedResults,fetchedCandidates)
             _viewState.emit(nextState)
         }
     }
+
 }

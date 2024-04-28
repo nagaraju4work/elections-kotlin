@@ -6,4 +6,8 @@ class ResultsServiceImpl(
     override suspend fun latestResults(): Results {
         return resultsRepository.latestResults()
     }
+
+    override suspend fun allCandidates(): List<Candidate> {
+        return resultsRepository.allCandidates()
+    }
 }

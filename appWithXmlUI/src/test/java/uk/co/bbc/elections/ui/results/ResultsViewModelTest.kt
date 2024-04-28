@@ -9,6 +9,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import uk.co.bbc.elections.MainDispatcherRule
+import uk.co.bbc.elections.api.Candidate
 import uk.co.bbc.elections.api.Result
 import uk.co.bbc.elections.api.Results
 import uk.co.bbc.elections.api.ResultsService
@@ -47,7 +48,21 @@ class ResultsViewModelTest {
                 )
             )
 
+            stubResultsService.latestCandidatesStubValues = listOf(listOf(
+                Candidate(
+                    id=1,
+                    name="Luke John"
+                ),
+                Candidate(
+                    id=2,
+                    name="Borris"
+                )
+            ))
+
+
             val viewModel = ResultsViewModel(stubResultsService)
+
+            viewModel.refresh()
 
             // initial state
             val s1 = viewModel.viewState.first()
@@ -61,8 +76,9 @@ class ResultsViewModelTest {
             val expectedLoadedState =
                 ResultsViewState.Loaded(
                     listOf(
-                        ResultsItemViewData("Party1", "1", 123)
-                    )
+                        ResultsItemViewData("Party1", "Luke John", 123)
+                    ),
+                    ResultsViewState.Loaded.MetaData(isComplete = false)
                 )
             val expectedStates = listOf(ResultsViewState.Loading, expectedLoadedState)
 
@@ -86,7 +102,30 @@ class ResultsViewModelTest {
                 )
             )
 
+            stubResultsService.latestCandidatesStubValues = listOf(listOf(
+                Candidate(
+                    id=1,
+                    name="Luke John"
+                ),
+                Candidate(
+                    id=2,
+                    name="Borris"
+                )
+            ),
+                listOf(
+                    Candidate(
+                        id=1,
+                        name="Luke John"
+                    ),
+                    Candidate(
+                        id=2,
+                        name="Borris"
+                    )
+                ))
+
             val viewModel = ResultsViewModel(stubResultsService)
+
+            viewModel.refresh()
 
             // initial state
             val s1 = viewModel.viewState.first()
@@ -109,15 +148,17 @@ class ResultsViewModelTest {
             val expectedLoadedState1 =
                 ResultsViewState.Loaded(
                     listOf(
-                        ResultsItemViewData("Party1", "1", 123)
-                    )
+                        ResultsItemViewData("Party1", "Luke John", 123)
+                    ),
+                    ResultsViewState.Loaded.MetaData(isComplete = false)
                 )
             val expectedLoadedState2 =
                 ResultsViewState.Loaded(
                     listOf(
-                        ResultsItemViewData("Party1", "1", 123),
-                        ResultsItemViewData("Party2", "2", 456),
-                    )
+                        ResultsItemViewData("Party1", "Luke John", 123),
+                        ResultsItemViewData("Party2", "Borris", 456),
+                    ),
+                    ResultsViewState.Loaded.MetaData(isComplete = false)
                 )
 
             val expectedStates = listOf(
@@ -134,8 +175,13 @@ class ResultsViewModelTest {
 class StubResultsService : ResultsService {
     var latestResultsInvocationCount = 0
 
+    var latestCandidatesInvocationCount = 0
+
     // sequence of stub values that latestResults() should return
     var latestResultsStubValues: List<Results> = emptyList()
+
+    // sequence of stub values that latestResults() should return
+    var latestCandidatesStubValues: List<List<Candidate>> = emptyList()
 
     override suspend fun latestResults(): Results {
         val stubValueForInvocation =
@@ -151,6 +197,24 @@ class StubResultsService : ResultsService {
         }
 
         latestResultsInvocationCount += 1
+
+        return results
+    }
+
+    override suspend fun allCandidates(): List<Candidate> {
+        val stubValueForInvocation =
+            latestCandidatesStubValues.getOrNull(latestCandidatesInvocationCount)
+
+        val results = if (stubValueForInvocation != null) {
+            delay(10)
+            stubValueForInvocation
+        } else {
+            // If no stub exists for the current invocation, simulate waiting forever
+            delay(Duration.INFINITE)
+            error("Unreachable")
+        }
+
+        latestCandidatesInvocationCount += 1
 
         return results
     }

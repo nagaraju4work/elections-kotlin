@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:padding="8dp">
+    android:paddingHorizontal="24dp"
+    android:paddingVertical="8dp"
+    >
 
     <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/party_tv"
         android:layout_width="0dp"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         tools:text="Adder party" />
@@ -16,16 +23,34 @@
     <TextView
         android:id="@+id/candidate_tv"
         android:layout_width="0dp"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@id/party_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_weight="1"
         tools:text="1" />
 
     <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/votes_tv"
         android:layout_width="0dp"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         tools:text="1056" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:visibility="gone"
+        android:id="@+id/ivWinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/winner_logo"/>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
