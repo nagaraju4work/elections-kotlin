@@ -33,3 +33,13 @@ In the assessment process, after making changes in your github repository, we wi
 If you have any problems with any of the above, please get in touch via your recruitment contact.
 
 Please feel free to send the assessment response as a link via recruitment contact
+
+
+## Tasks done by Nagaraju T
+
+1. I have utilized the flag isComplete as true after all iterations to mark the elections as done. Hidden the floating button when isComplete flag is true and highlighted the Winner with odd color background and a winner tag. Calculated the winner by using maxBy which will help to change the Winner on each iteration.
+2. I have called the all candidates api to fetch the names and mapped them to the Results where I have candidate ID. So Candidate Names are displayed now.
+3. Talkback provides spoken feedback and navigation instructions to make interacting with the device's interface more accessible. Having the Header may confuse the Visually impaired, hence Header doesn't required so Removed it. Also while speaking, to to make the details more clear for the Visually Impaired all the details having quoted with respective params.
+4. According to WCAG (Web Content Accessibility Guidelines), the recommended touch target size is 48dp x 48dp. Here the TextViews have been adjusted to 48dp height while the width adjusted as per the text.
+5. Implemented the ConnectivityHelper for knowing the connectivity exists or not and a helper function to display No Internet alert. Also added NetworkCallback functionality where I randomly enable/Disable the connectivity and able to see the error messages on top of the screen.
+6. Finally, Test Cases written were modified as My ViewModel function has been modified to fetch the candidate names too. All Test cases are executed successfully.
